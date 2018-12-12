@@ -1,7 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:tic_tac_toe_flutter/custom_dailog.dart';
-import 'package:tic_tac_toe_flutter/game_button.dart';
+import 'package:tic_tac_toe_flutter/model/game_button.dart';
 
 class GamePage extends StatefulWidget {
   @override
