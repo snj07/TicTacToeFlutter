@@ -1,9 +1,15 @@
 import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:tic_tac_toe_flutter/custom_dailog.dart';
+import 'package:tic_tac_toe_flutter/game_logic.dart';
 import 'package:tic_tac_toe_flutter/model/game_button.dart';
 
 class GamePage extends StatefulWidget {
+  final bool isSinglePlayer;
+
+  const GamePage({Key key, this.isSinglePlayer}) : super(key: key);
+
   @override
   _HomePageState createState() => new _HomePageState();
 }
@@ -53,15 +59,30 @@ class _HomePageState extends State<GamePage> {
         player2.add(gb.id);
       }
       gb.enabled = false;
-      int winner = checkWinner();
-      if (winner == -1) {
+      int winner = new GameLogic().checkWinner(player1, player2);
+
+      if (winner != -1) {
+        if (winner == 1) {
+          showDialog(
+              context: context,
+              builder: (_) => new CustomDialog("Player 1 Won",
+                  "Press the reset button to start again.", resetGame));
+        } else {
+          showDialog(
+              context: context,
+              builder: (_) => new CustomDialog("Player 2 Won",
+                  "Press the reset button to start again.", resetGame));
+        }
+      } else if (winner == -1) {
         if (buttonsList.every((p) => p.text != "")) {
           showDialog(
               context: context,
               builder: (_) => new CustomDialog("Game Tied",
                   "Press the reset button to start again.", resetGame));
         } else {
-          activePlayer == 2 ? autoPlay() : null;
+          if (widget.isSinglePlayer) {
+            activePlayer == 2 ? autoPlay() : null;
+          }
         }
       }
     });
@@ -81,87 +102,6 @@ class _HomePageState extends State<GamePage> {
     var cellID = emptyCells[randIndex];
     int i = buttonsList.indexWhere((p) => p.id == cellID);
     playGame(buttonsList[i]);
-  }
-
-  int checkWinner() {
-    var winner = -1;
-    if (player1.contains(1) && player1.contains(2) && player1.contains(3)) {
-      winner = 1;
-    }
-    if (player2.contains(1) && player2.contains(2) && player2.contains(3)) {
-      winner = 2;
-    }
-
-    // row 2
-    if (player1.contains(4) && player1.contains(5) && player1.contains(6)) {
-      winner = 1;
-    }
-    if (player2.contains(4) && player2.contains(5) && player2.contains(6)) {
-      winner = 2;
-    }
-
-    // row 3
-    if (player1.contains(7) && player1.contains(8) && player1.contains(9)) {
-      winner = 1;
-    }
-    if (player2.contains(7) && player2.contains(8) && player2.contains(9)) {
-      winner = 2;
-    }
-
-    // col 1
-    if (player1.contains(1) && player1.contains(4) && player1.contains(7)) {
-      winner = 1;
-    }
-    if (player2.contains(1) && player2.contains(4) && player2.contains(7)) {
-      winner = 2;
-    }
-
-    // col 2
-    if (player1.contains(2) && player1.contains(5) && player1.contains(8)) {
-      winner = 1;
-    }
-    if (player2.contains(2) && player2.contains(5) && player2.contains(8)) {
-      winner = 2;
-    }
-
-    // col 3
-    if (player1.contains(3) && player1.contains(6) && player1.contains(9)) {
-      winner = 1;
-    }
-    if (player2.contains(3) && player2.contains(6) && player2.contains(9)) {
-      winner = 2;
-    }
-
-    //diagonal
-    if (player1.contains(1) && player1.contains(5) && player1.contains(9)) {
-      winner = 1;
-    }
-    if (player2.contains(1) && player2.contains(5) && player2.contains(9)) {
-      winner = 2;
-    }
-
-    if (player1.contains(3) && player1.contains(5) && player1.contains(7)) {
-      winner = 1;
-    }
-    if (player2.contains(3) && player2.contains(5) && player2.contains(7)) {
-      winner = 2;
-    }
-
-    if (winner != -1) {
-      if (winner == 1) {
-        showDialog(
-            context: context,
-            builder: (_) => new CustomDialog("Player 1 Won",
-                "Press the reset button to start again.", resetGame));
-      } else {
-        showDialog(
-            context: context,
-            builder: (_) => new CustomDialog("Player 2 Won",
-                "Press the reset button to start again.", resetGame));
-      }
-    }
-
-    return winner;
   }
 
   void resetGame() {

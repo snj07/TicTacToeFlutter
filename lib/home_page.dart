@@ -40,19 +40,17 @@ class HomePageState extends State<HomePage> {
         ));
   }
 
-  void singlePlayerButton(){
+  void singlePlayerButton() {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => GamePage()),
-    );
-
-  }
-  void multiPlayerButton(){
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => GamePage()),
+      MaterialPageRoute(builder: (context) => GamePage(isSinglePlayer: true)),
     );
   }
 
-
+  void multiPlayerButton() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => GamePage(isSinglePlayer: false)),
+    );
+  }
 }
