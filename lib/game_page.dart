@@ -49,7 +49,7 @@ class _HomePageState extends State<GamePage> {
     setState(() {
       if (activePlayer == 1) {
         gb.text = "X";
-        gb.bg = Colors.lime;
+        gb.bg = Colors.lightBlueAccent;
         activePlayer = 2;
         player1.add(gb.id);
       } else {
