@@ -1,5 +1,9 @@
 # TicTacToe
 TicTacToe game for mobile developed in Flutter
+
+## Feature
+•	Single/Mutli player option<br/> 
+
 ## Screens
 <img src="https://github.com/snj07/TicTacToeFlutter/blob/master/screenshot/Screenshot_20181216-185754.jpg" width="240"/>
 <br/>
