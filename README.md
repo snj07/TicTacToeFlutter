@@ -10,7 +10,7 @@ TicTacToe game for mobile developed in Flutter
 
 ## Getting Started
 
-For help getting started with Flutter, view our online
+For help getting started with Flutter, view online tutorial :
 [documentation](https://flutter.io/).
 
 
